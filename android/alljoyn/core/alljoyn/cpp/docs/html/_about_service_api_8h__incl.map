@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_log_8h.html" title="Log control." alt="" coords="5,83,83,112"/>
+<area shape="rect" id="node7" href="$version_8h.html" title="This file provides access to AllJoyn library version and build information." alt="" coords="113,83,228,112"/>
+<area shape="rect" id="node10" href="$_about_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.About interface." alt="" coords="255,83,441,112"/>
+<area shape="rect" id="node19" href="$_property_store_8h.html" title="User implemented property store responsible for holding the AboutService properties." alt="" coords="575,160,764,189"/>
+<area shape="rect" id="node5" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="164,237,268,267"/>
+<area shape="rect" id="node16" href="$_bus_attachment_8h.html" title="is the top&#45;level object responsible for connecting to a message bus." alt="" coords="271,160,433,189"/>
+<area shape="rect" id="node21" href="$_mutex_8h.html" title="Define a class that abstracts mutex&#39;s." alt="" coords="457,160,551,189"/>
+</map>

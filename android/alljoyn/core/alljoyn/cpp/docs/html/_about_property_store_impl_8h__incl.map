@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node7" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="537,469,641,499"/>
+<area shape="rect" id="node9" href="$_about_service_api_8h.html" title="Wrapper to encapsulate the AboutService with a singelton." alt="" coords="476,83,681,112"/>
+<area shape="rect" id="node19" href="$_property_store_8h.html" title="User implemented property store responsible for holding the AboutService properties." alt="" coords="403,237,592,267"/>
+<area shape="rect" id="node30" href="$_property_store_property_8h.html" title="property of the PropertyStoreImpl class" alt="" coords="141,237,379,267"/>
+<area shape="rect" id="node11" href="$_log_8h.html" title="Log control." alt="" coords="645,315,723,344"/>
+<area shape="rect" id="node14" href="$version_8h.html" title="This file provides access to AllJoyn library version and build information." alt="" coords="532,392,647,421"/>
+<area shape="rect" id="node17" href="$_about_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.About interface." alt="" coords="355,160,541,189"/>
+<area shape="rect" id="node21" href="$_msg_arg_8h.html" title="This file defines a class for message bus data types and values." alt="" coords="371,315,488,344"/>
+<area shape="rect" id="node24" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="291,392,381,421"/>
+</map>

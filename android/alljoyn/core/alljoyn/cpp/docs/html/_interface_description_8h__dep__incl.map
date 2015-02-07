@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_all_joyn_std_8h.html" title="This file provides definitions for AllJoyn interfaces." alt="" coords="19,83,115,112"/>
+<area shape="rect" id="node5" href="$_bus_attachment_8h.html" title="is the top&#45;level object responsible for connecting to a message bus." alt="" coords="183,160,305,189"/>
+<area shape="rect" id="node20" href="$_bus_object_8h.html" title="This file defines the base class for message bus objects that are implemented and registered locally..." alt="" coords="341,83,435,112"/>
+<area shape="rect" id="node25" href="$_proxy_bus_object_8h.html" title="This file defines the class ProxyBusObject." alt="" coords="189,83,317,112"/>
+<area shape="rect" id="node7" href="$_about_client_8h.html" title="Implementation of a ProxyBusObject used to interact with a org.alljoyn.About interface." alt="" coords="5,237,107,267"/>
+<area shape="rect" id="node9" href="$_announcement_registrar_8h.html" title="Used to register an AnnounceHandler for the org.alljoyn.About Announce signal." alt="" coords="107,315,280,344"/>
+<area shape="rect" id="node11" href="$_about_icon_client_8h.html" title="Implementation of a ProxyBusObject used to interact with a org.alljoyn.Icon interface." alt="" coords="181,237,307,267"/>
+<area shape="rect" id="node14" href="$_about_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.About interface." alt="" coords="331,237,440,267"/>
+<area shape="rect" id="node16" href="$_announce_handler_8h.html" title="MessageReceiver responsible for receiving the Announce signal from the org.alljoyn.About interface." alt="" coords="464,237,600,267"/>
+<area shape="rect" id="node23" href="$_about_icon_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.Icon interface." alt="" coords="329,160,465,189"/>
+</map>

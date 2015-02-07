@@ -1,0 +1,9 @@
+org.alljoyn.about
+org.alljoyn.about.client
+org.alljoyn.about.icon
+org.alljoyn.about.transport
+org.alljoyn.bus
+org.alljoyn.bus.annotation
+org.alljoyn.bus.ifaces
+org.alljoyn.services.common
+org.alljoyn.services.common.utils

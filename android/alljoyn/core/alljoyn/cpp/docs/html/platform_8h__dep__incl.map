@@ -1,0 +1,38 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$_all_joyn_std_8h.html" title="This file provides definitions for AllJoyn interfaces." alt="" coords="680,392,776,421"/>
+<area shape="rect" id="node5" href="$_auth_listener_8h.html" title="This file defines the AuthListener class that provides the interface between authentication mechanism..." alt="" coords="1461,315,1568,344"/>
+<area shape="rect" id="node7" href="$_bus_attachment_8h.html" title="is the top&#45;level object responsible for connecting to a message bus." alt="" coords="1069,469,1192,499"/>
+<area shape="rect" id="node13" href="$_about_property_store_impl_8h.html" title="Default implementation of the Property store." alt="" coords="100,701,271,731"/>
+<area shape="rect" id="node18" href="$_bus_object_8h.html" title="This file defines the base class for message bus objects that are implemented and registered locally..." alt="" coords="560,392,653,421"/>
+<area shape="rect" id="node23" href="$_interface_description_8h.html" title="This file defines types for statically describing a message bus interface." alt="" coords="685,315,835,344"/>
+<area shape="rect" id="node28" href="$_proxy_bus_object_8h.html" title="This file defines the class ProxyBusObject." alt="" coords="1067,392,1195,421"/>
+<area shape="rect" id="node31" href="$_key_store_listener_8h.html" title="The KeyStoreListener class handled requests to load or store the key store." alt="" coords="427,160,560,189"/>
+<area shape="rect" id="node34" href="$_message_8h.html" title="This file defines a class for parsing and generating message bus messages." alt="" coords="1288,237,1373,267"/>
+<area shape="rect" id="node38" href="$_message_receiver_8h.html" title="MessageReceiver is a base class implemented by any class which wishes to receive AllJoyn messages..." alt="" coords="1061,315,1200,344"/>
+<area shape="rect" id="node42" href="$_message_sink_8h.html" title="Abstract interface implemented by objects that wish to consume Message Bus messages." alt="" coords="1275,315,1387,344"/>
+<area shape="rect" id="node47" href="$_msg_arg_8h.html" title="This file defines a class for message bus data types and values." alt="" coords="275,160,352,189"/>
+<area shape="rect" id="node60" href="$_password_manager_8h.html" title="This file defines the PasswordManager class that provides the interface to set credentials used for t..." alt="" coords="989,160,1131,189"/>
+<area shape="rect" id="node63" href="$_session_8h.html" title="AllJoyn session related data types." alt="" coords="1597,160,1677,189"/>
+<area shape="rect" id="node78" href="$_transport_mask_8h.html" title="Transport type definitions." alt="" coords="1648,83,1768,112"/>
+<area shape="rect" id="node85" href="$version_8h.html" title="This file provides access to AllJoyn library version and build information." alt="" coords="1216,469,1291,499"/>
+<area shape="rect" id="node89" href="$atomic_8h.html" title="Toolchain specific wrapper for atomic.h." alt="" coords="1349,83,1421,112"/>
+<area shape="rect" id="node91" href="$_managed_obj_8h.html" title="This template class provides reference counting based heap allocation for objects." alt="" coords="1315,160,1421,189"/>
+<area shape="rect" id="node94" href="$_debug_8h.html" title="Define some convenience macros for debugging." alt="" coords="2269,83,2339,112"/>
+<area shape="rect" id="node96" href="$_log_8h.html" title="Log control." alt="" coords="1332,469,1385,499"/>
+<area shape="rect" id="node101" href="$_mutex_8h.html" title="Define a class that abstracts mutex&#39;s." alt="" coords="187,392,256,421"/>
+<area shape="rect" id="node104" href="$posix_2atomic_8h.html" title="Define atomic read&#45;modify&#45;write memory options." alt="" coords="2363,83,2435,112"/>
+<area shape="rect" id="node106" href="$posix_2_mutex_8h.html" title="Define a class that abstracts Linux mutex&#39;s." alt="" coords="2459,83,2528,112"/>
+<area shape="rect" id="node108" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="792,83,859,112"/>
+<area shape="rect" id="node125" href="$_string_util_8h.html" title="This file defines string related utility functions." alt="" coords="1155,160,1240,189"/>
+<area shape="rect" id="node9" href="$_about_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.About interface." alt="" coords="332,547,441,576"/>
+<area shape="rect" id="node15" href="$_announcement_registrar_8h.html" title="Used to register an AnnounceHandler for the org.alljoyn.About Announce signal." alt="" coords="1148,547,1321,576"/>
+<area shape="rect" id="node11" href="$_about_service_api_8h.html" title="Wrapper to encapsulate the AboutService with a singelton." alt="" coords="321,624,452,653"/>
+<area shape="rect" id="node21" href="$_about_icon_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.Icon interface." alt="" coords="539,469,675,499"/>
+<area shape="rect" id="node52" href="$_property_store_8h.html" title="User implemented property store responsible for holding the AboutService properties." alt="" coords="237,469,349,499"/>
+<area shape="rect" id="node57" href="$_property_store_property_8h.html" title="property of the PropertyStoreImpl class" alt="" coords="144,237,307,267"/>
+<area shape="rect" id="node69" href="$_session_listener_8h.html" title="SessionListener is an abstract base class (interface) implemented by users of the AllJoyn API in orde..." alt="" coords="1968,237,2093,267"/>
+<area shape="rect" id="node72" href="$_session_port_listener_8h.html" title="SessionPortListener is an abstract base class (interface) implemented by users of the AllJoyn API in ..." alt="" coords="1995,315,2144,344"/>
+<area shape="rect" id="node76" href="$_simple_bus_listener_8h.html" title="SimpleBusListener is a synchronous bus listener that fits the need of applications that can handled a..." alt="" coords="1651,237,1792,267"/>
+<area shape="rect" id="node80" href="$_bus_listener_8h.html" title="BusListener is an abstract base class (interface) implemented by users of the AllJoyn API in order to..." alt="" coords="1701,160,1803,189"/>
+<area shape="rect" id="node120" href="$_translator_8h.html" title="Translator is an abstract base class (interface) implemented by users of the AllJoyn API in order to ..." alt="" coords="736,237,827,267"/>
+</map>

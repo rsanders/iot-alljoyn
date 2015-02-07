@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$classajn_1_1services_1_1_about_icon_service.html" title="AboutIconService is an AllJoyn BusObject that implements the org.alljoyn.Icon standard interface..." alt="" coords="5,160,211,189"/>
+<area shape="rect" id="node7" href="$classajn_1_1services_1_1_about_service.html" title="AboutService is an AllJoyn BusObject that implements the org.alljoyn.About standard interface..." alt="" coords="235,160,416,189"/>
+<area shape="rect" id="node2" href="$classajn_1_1_message_receiver.html" title="MessageReceiver is a pure&#45;virtual base class that is implemented by any class that wishes to receive ..." alt="" coords="140,5,292,35"/>
+<area shape="rect" id="node9" href="$classajn_1_1services_1_1_about_service_api.html" title="AboutServiceApi is wrapper class that encapsulates the AboutService with a Singelton." alt="" coords="225,237,425,267"/>
+</map>
