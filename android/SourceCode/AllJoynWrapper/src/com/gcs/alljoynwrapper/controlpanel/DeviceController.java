@@ -28,23 +28,24 @@ import android.widget.Toast;
 class DeviceController implements DeviceEventsListener, ControlPanelExceptionHandler, ControlPanelEventsListener
 {
 	private static final String TAG = "DeviceController";
-    private final ControllableDevice device;
-    private DeviceControlPanel deviceControlPanel;
-    private ControlPanelAdapter controlPanelAdapter;
-    private AlertDialog alertDialog;
+    private final ControllableDevice mDevice;
+    private DeviceControlPanel mDeviceControlPanel;
+    private ControlPanelAdapter mControlPanelAdapter;
+    private AlertDialog mAlertDialog;
     private IControlPannelCallback mControlPannelCallback;
 
-    DeviceController(ControllableDevice controllableDevice, Activity activity)
+    DeviceController(ControllableDevice controllableDevice, IControlPannelCallback controlPannelCallback)
     {
-        this.device = controllableDevice;
+    	mDevice = controllableDevice;
+        mControlPannelCallback = controlPannelCallback;
     }
 
     public void start() throws ControlPanelException
     {
         try {
             Log.d(TAG, "Starting the session with the device");
-            if (device != null) {
-                device.startSession(this);
+            if (mDevice != null) {
+            	mDevice.startSession(this);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,12 +56,12 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     {
         try {
             Log.d(TAG, "Releasing the device control panel");
-            if (deviceControlPanel != null) {
-                deviceControlPanel.release();
+            if (mDeviceControlPanel != null) {
+                mDeviceControlPanel.release();
             }
             Log.d(TAG, "Stopping the session with the device");
-            if (device != null) {
-                device.endSession();
+            if (mDevice != null) {
+            	mDevice.endSession();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,7 +70,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
 
     @Override
     public void sessionLost(final ControllableDevice device) {
-        if (this.device.getDeviceId().equalsIgnoreCase(device.getDeviceId())) {
+        if (mDevice.getDeviceId().equalsIgnoreCase(device.getDeviceId())) {
             getActivitySafely().runOnUiThread(new Runnable(){
                 @Override
                 public void run()
@@ -104,14 +105,14 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     private void onControlPanelSelected() {
         try {
 
-            UIElement rootContainerElement = deviceControlPanel.getRootElement(this);
+            UIElement rootContainerElement = mDeviceControlPanel.getRootElement(this);
 
             if ( rootContainerElement == null ) {
                 Log.e(TAG, "RootContainerElement wasn't created!!! Can't continue");
                 return;
             }
 
-            controlPanelAdapter = new ControlPanelAdapter(getActivitySafely(), this);
+            mControlPanelAdapter = new ControlPanelAdapter(getActivitySafely(), this);
 
             UIElementType elementType = rootContainerElement.getElementType();
             Log.d(TAG, "Found root container of type: '" + elementType + "'");
@@ -119,7 +120,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
             if ( elementType == UIElementType.CONTAINER ) {
                 ContainerWidget container = ((ContainerWidget)rootContainerElement);
                 /* create an android view for the abstract container */
-                final View adapterView = controlPanelAdapter.createContainerView(container);
+                final View adapterView = mControlPanelAdapter.createContainerView(container);
 
                 getActivitySafely().runOnUiThread(new Runnable(){
                     @Override
@@ -137,7 +138,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
             }
             else if ( elementType == UIElementType.ALERT_DIALOG ) {
                 AlertDialogWidget alertDialogWidget = ((AlertDialogWidget)rootContainerElement);
-                AlertDialog alertDialog = controlPanelAdapter.createAlertDialog(alertDialogWidget);
+                AlertDialog alertDialog = mControlPanelAdapter.createAlertDialog(alertDialogWidget);
                 alertDialog.setCancelable(false);
                 alertDialog.setCanceledOnTouchOutside(false);
                 alertDialog.setOnDismissListener(new AlertDialog.OnDismissListener() {
@@ -281,7 +282,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
         String language_IETF_RFC5646_java = Locale.getDefault().toString(); //"en_US", "es_SP"
         String language_IETF_RFC5646 = language_IETF_RFC5646_java.replace('_', '-');
         String languageISO639 = Locale.getDefault().getLanguage(); //"en", "es"
-        DeviceControlPanel previousControlPanel = deviceControlPanel;
+        DeviceControlPanel previousControlPanel = mDeviceControlPanel;
         boolean found = false;
         for(DeviceControlPanel controlPanel : controlPanels) {
             String cpLanugage = controlPanel.getLanguage();
@@ -291,7 +292,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
                     // phone language=de_DE (de), cp language=de_AT
                     || cpLanugage.startsWith(languageISO639))
             {
-                deviceControlPanel = controlPanel;
+            	mDeviceControlPanel = controlPanel;
                 found = true;
                 Log.d(TAG, String.format("Found a control panel that matches phone languages: RFC5646=%s, ISO639=%s, Given language was: %s", language_IETF_RFC5646, languageISO639, cpLanugage));
                 break;
@@ -300,8 +301,8 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
         if (!found  && !controlPanels.isEmpty())
         {
             Log.w(TAG, String.format("Could not find a control panel that matches phone languages: RFC5646=%s, ISO639=%s", language_IETF_RFC5646, languageISO639));
-            deviceControlPanel =  controlPanels.iterator().next();
-            Log.d(TAG, String.format("Defaulting to the control panel of language: %s", deviceControlPanel.getLanguage()));
+            mDeviceControlPanel =  controlPanels.iterator().next();
+            Log.d(TAG, String.format("Defaulting to the control panel of language: %s", mDeviceControlPanel.getLanguage()));
         }
 
         Log.d(TAG, "Releasing the previous device control panel");
@@ -319,7 +320,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    controlPanelAdapter.onMetaDataChange(uielement);
+                    mControlPanelAdapter.onMetaDataChange(uielement);
                 }
             });
         }
@@ -330,7 +331,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     {
         final String text = "Error: '" + reason + "'";
         Log.e(TAG, text);
-        if (this.device.getDeviceId().equalsIgnoreCase(device.getDeviceId())) {
+        if (mDevice.getDeviceId().equalsIgnoreCase(device.getDeviceId())) {
             final Activity activity = getActivitySafely();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
@@ -367,15 +368,15 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     @Override
     public void metadataChanged(DeviceControlPanel deviceControlPanel, final UIElement uielement) {
         Log.d(TAG, "Received metadataChanged signal, device: '" + deviceControlPanel.getDevice().getDeviceId() + "', ObjPath: '" + uielement.getObjectPath() + "'");
-        if (device.getDeviceId().equalsIgnoreCase(deviceControlPanel.getDevice().getDeviceId())) {
+        if (mDevice.getDeviceId().equalsIgnoreCase(deviceControlPanel.getDevice().getDeviceId())) {
             UIElementType elementType = uielement.getElementType();
-            Log.d(TAG, "Received metadataChanged : Received metadata changed signal, device: '" + device.getDeviceId() + "', ObjPath: '" + uielement.getObjectPath() + "', element type: '" + elementType + "'");
+            Log.d(TAG, "Received metadataChanged : Received metadata changed signal, device: '" + mDevice.getDeviceId() + "', ObjPath: '" + uielement.getObjectPath() + "', element type: '" + elementType + "'");
             Activity activity = getActivitySafely();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        controlPanelAdapter.onMetaDataChange(uielement);
+                        mControlPanelAdapter.onMetaDataChange(uielement);
                     }
                 });
             }
@@ -385,15 +386,15 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     @Override
     public void valueChanged(DeviceControlPanel deviceControlPanel, final UIElement uielement, final Object newValue) {
         Log.d(TAG, "Received valueChanged signal, device: '" + deviceControlPanel.getDevice().getDeviceId() + "', ObjPath: '" + uielement.getObjectPath() + "', NewValue: '" + newValue + "'");
-        if (device.getDeviceId().equalsIgnoreCase(deviceControlPanel.getDevice().getDeviceId())) {
-            if (controlPanelAdapter != null) {
+        if (mDevice.getDeviceId().equalsIgnoreCase(deviceControlPanel.getDevice().getDeviceId())) {
+            if (mControlPanelAdapter != null) {
 
                 final Activity activity = getActivitySafely();
                 if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            controlPanelAdapter.onValueChange(uielement,
+                            mControlPanelAdapter.onValueChange(uielement,
                                     newValue);
                             String text = "Received value changed signal, ObjPath: '"
                                     + uielement.getObjectPath()
@@ -411,9 +412,9 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     public void notificationActionDismiss(DeviceControlPanel deviceControlPanel) {
 
         Log.d(TAG,"Received notificationActionDismiss");
-        if (alertDialog != null && alertDialog.isShowing()) {
+        if (mAlertDialog != null && mAlertDialog.isShowing()) {
             Log.d(TAG,"Dismissing the dialog");
-            alertDialog.dismiss();
+            mAlertDialog.dismiss();
         }
     }
     
