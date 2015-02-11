@@ -24,14 +24,15 @@ import com.gcs.alljoynwrapper.controlpanel.DeviceList.DeviceContext;
 import com.gcs.alljoynwrapper.util.AllJoynLogger;
 import com.gcs.alljoynwrapper.util.Contants;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPasswordHandler  
+public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPasswordHandler  
 {
 	private final static String TAG = "AllJoynAsyncHandler";
 	public static final int CONNECT = 1;
@@ -57,13 +58,13 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
 	 */
 	private AboutService aboutClient;
 	
-	private Context mContext;
+	private IControlPannelCallback mControlPannelCallback;
 	
-	public AllJoynAsyncHandler(Looper looper, Context context) {
+	public AllJoynAsyncHandler(Looper looper, IControlPannelCallback controlPannelCallback) {
 		super(looper);
-		mContext = context;
+		mControlPannelCallback = controlPannelCallback;
+		deviceRegistry = new DeviceList();
 	}
-	
 	@Override
 	public void handleMessage(Message msg) {
 		switch (msg.what) {
@@ -163,8 +164,10 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
 		{
 			Log.e(TAG, "Unable to start ControlPanelService, Error: " + e.getMessage());
 		}
-	    
-		Toast.makeText(mContext, "Initialized" , Toast.LENGTH_SHORT).show();
+		Activity activity = mControlPannelCallback.getActivitySafely();
+		if(activity != null) {
+			Toast.makeText(activity, "Initialized" , Toast.LENGTH_SHORT).show();
+		}		
 
 		// update the list
 		refreshListView();			
@@ -176,7 +179,7 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
 	/**
 	 * Release all resources acquired in connect.
 	 */
-	private void disconnect() {
+	public void disconnect() {
 	    ControlPanelService.getInstance().shutdown();
 		try {
 							
@@ -267,16 +270,19 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
 	}		
 	
 	private void refreshListView() {
-		/*mContext.runOnUiThread(new Runnable(){
+		final Activity activity = mControlPannelCallback.getActivitySafely();
+		if(activity != null) {
+			activity.runOnUiThread(new Runnable(){
 
-			@Override
-			public void run() {
-				ArrayAdapter<DeviceContext> arrayAdapter = new ArrayAdapter<DeviceList.DeviceContext>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, deviceRegistry.getContexts());
-				setListAdapter(arrayAdapter);
-				arrayAdapter.notifyDataSetChanged();
-			}});*/
+				@Override
+				public void run() {
+					ArrayAdapter<DeviceContext> arrayAdapter = new ArrayAdapter<DeviceList.DeviceContext>(activity,
+					android.R.layout.simple_list_item_activated_1,
+					android.R.id.text1, deviceRegistry.getContexts());
+					mControlPannelCallback.setListViewAdapter(arrayAdapter);
+					arrayAdapter.notifyDataSetChanged();
+				}});
+		}
 	}
 	
 	/**
@@ -302,13 +308,13 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
 		else {
 			Log.w(TAG, "The peer: '" + authPeer + "', WAS NOT authenticated for authMechanism: '" + authMechanism + "'");
 		}
-		
-//		if (getActivity() != null)
-//			getActivity().runOnUiThread(new Runnable(){
-//				@Override
-//				public void run() {
-//					Toast.makeText(getActivity(), "Authenticated: " + authenticated, Toast.LENGTH_SHORT).show();
-//				}});
+		final Activity activity = mControlPannelCallback.getActivitySafely();		
+		if (activity != null)
+			activity.runOnUiThread(new Runnable(){
+				@Override
+				public void run() {
+					Toast.makeText(activity, "Authenticated: " + authenticated, Toast.LENGTH_SHORT).show();
+				}});
 	}
 	
 	/**
@@ -317,6 +323,10 @@ class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPa
      * This uses the private file area associated with the application package.
      */
     public String getKeyStoreFileName() {
-        return mContext.getFileStreamPath("alljoyn_keystore").getAbsolutePath();
+    	Activity activity = mControlPannelCallback.getActivitySafely();
+		if(activity != null) {
+			return activity.getFileStreamPath("alljoyn_keystore").getAbsolutePath();
+		}
+        return "";
     }//getKeyStoreFileName
  }

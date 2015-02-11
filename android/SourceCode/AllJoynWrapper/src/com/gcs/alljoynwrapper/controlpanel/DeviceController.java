@@ -25,7 +25,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-class DeviceController implements DeviceEventsListener, ControlPanelExceptionHandler, ControlPanelEventsListener
+public class DeviceController implements DeviceEventsListener, ControlPanelExceptionHandler, ControlPanelEventsListener
 {
 	private static final String TAG = "DeviceController";
     private final ControllableDevice mDevice;
@@ -34,7 +34,7 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     private AlertDialog mAlertDialog;
     private IControlPannelCallback mControlPannelCallback;
 
-    DeviceController(ControllableDevice controllableDevice, IControlPannelCallback controlPannelCallback)
+    public DeviceController(ControllableDevice controllableDevice, IControlPannelCallback controlPannelCallback)
     {
     	mDevice = controllableDevice;
         mControlPannelCallback = controlPannelCallback;
@@ -126,11 +126,6 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
                     @Override
                     public void run()
                     {
-//                        if (rootView != null) {
-//                            LinearLayout body = (LinearLayout) rootView.findViewById(R.id.control_panel);
-//                            body.removeAllViews();
-//                            body.addView(adapterView);
-//                        }
                     	if(mControlPannelCallback != null) {
                     		mControlPannelCallback.onControlPanelSelected(adapterView);
                     	}
@@ -162,11 +157,6 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
                 @Override
                 public void run()
                 {
-//                    if (rootView != null) {
-//                        LinearLayout body = (LinearLayout) rootView.findViewById(R.id.control_panel);
-//                        body.removeAllViews();
-//                        body.addView(returnView);
-//                    }
                 	if(mControlPannelCallback != null) {
                 		mControlPannelCallback.onControlPanelSelected(returnView);
                 	}
@@ -179,47 +169,6 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     	if(mControlPannelCallback != null) {
     		mControlPannelCallback.onSelectControlPanel(device);
     	}
-//        if (rootView != null) {
-//            Spinner unitSelector = (Spinner) rootView.findViewById(R.id.unit_selector);
-//            Collection<Unit> unitCollection = device.getUnitCollection();
-//            if (unitCollection.size() == 0) {
-//                Log.w(TAG, "No units found");
-//                unitSelector.setEnabled(false);
-//            } else {
-//                final ArrayAdapter<LabelValuePair> adapter = new ArrayAdapter<LabelValuePair>(getActivitySafely(), android.R.layout.simple_spinner_item);
-//                for (Unit unit: unitCollection) {
-//                    adapter.add(new LabelValuePair(unit.getUnitId(), unit));
-//                }
-//                unitSelector.setAdapter(adapter);
-//
-//                if (unitCollection.size() == 1) {
-//                    unitSelector.setEnabled(false);
-//                    onUnitSelection(unitCollection.iterator().next());
-//                } else {
-//                    // register a selection listener
-//                    OnItemSelectedListener listener = new OnItemSelectedListener() {
-//                        int currentSelection = 1000;
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> parent, View view, final int pos, long id) {
-//                            if (pos == currentSelection) {
-//                                Log.d(TAG, String.format("Selected position %d already selected. No action required", pos));
-//                            } else {
-//                                currentSelection = pos;
-//                                LabelValuePair item = adapter.getItem(pos);
-//                                Unit selectedUnit = (Unit) item.value;
-//                                onUnitSelection(selectedUnit);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> parent) {
-//                            // Another interface callback
-//                        }
-//                    };
-//                    unitSelector.setOnItemSelectedListener(listener);
-//                }
-//            }
-//        }
     }
 
     public void onUnitSelection(Unit selectedUnit) {
@@ -235,49 +184,9 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     	if(mControlPannelCallback != null) {
     		mControlPannelCallback.onSelectControlPanelCollection(controlPanelContainer);
     	}
-//        if (rootView != null) {
-//            Spinner cpCollectionSelector = (Spinner) rootView.findViewById(R.id.cp_collection_selector);
-//            if (controlPanelContainer.size() == 0) {
-//                Log.w(TAG, "No control panel collections found");
-//                cpCollectionSelector.setEnabled(false);
-//            } else {
-//                final ArrayAdapter<LabelValuePair> adapter = new ArrayAdapter<LabelValuePair>(getActivitySafely(), android.R.layout.simple_spinner_item);
-//                for (ControlPanelCollection cpCollection: controlPanelContainer) {
-//                    adapter.add(new LabelValuePair(cpCollection.getName(), cpCollection));
-//                }
-//                cpCollectionSelector.setAdapter(adapter);
-//
-//                if (controlPanelContainer.size() == 1) {
-//                    cpCollectionSelector.setEnabled(false);
-//                    onControlPanelCollectionSelection(controlPanelContainer.iterator().next());
-//                } else {
-//                    // register a selection listener
-//                    OnItemSelectedListener listener = new OnItemSelectedListener() {
-//                        int currentSelection = 1000;
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> parent, View view, final int pos, long id) {
-//                            if (pos == currentSelection) {
-//                                Log.d(TAG, String.format("Selected position %d already selected. No action required", pos));
-//                            } else {
-//                                currentSelection = pos;
-//                                LabelValuePair item = adapter.getItem(pos);
-//                                ControlPanelCollection cpCollection = (ControlPanelCollection) item.value;
-//                                onControlPanelCollectionSelection(cpCollection);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> parent) {
-//                            // Another interface callback
-//                        }
-//                    };
-//                    cpCollectionSelector.setOnItemSelectedListener(listener);
-//                }
-//            }
-//        }
     }
 
-    protected void onControlPanelCollectionSelection(ControlPanelCollection controlPanelCollection) {
+    public void onControlPanelCollectionSelection(ControlPanelCollection controlPanelCollection) {
         Collection<DeviceControlPanel> controlPanels = controlPanelCollection.getControlPanels();
         String language_IETF_RFC5646_java = Locale.getDefault().toString(); //"en_US", "es_SP"
         String language_IETF_RFC5646 = language_IETF_RFC5646_java.replace('_', '-');
@@ -424,27 +333,4 @@ class DeviceController implements DeviceEventsListener, ControlPanelExceptionHan
     	}
     	return null;
     }
-    
-    /**
-     * A wrapper class for hosting a {label,value} pair inside an ArrayAdapter.
-     * So that the label is displayed, while practically the real value is used.
-     */
-    class LabelValuePair {
-
-        final String label;
-        final Object value;
-
-        public LabelValuePair(String label, Object value) {
-            super();
-            this.value = value;
-            this.label = label;
-        }
-
-        @Override
-        // This does the trick of displaying the label and not the value in the Adapter
-        public String toString() {
-            return label;
-        }
-    }
-
 }

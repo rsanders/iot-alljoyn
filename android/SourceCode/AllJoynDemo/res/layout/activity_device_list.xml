@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <!-- 
  /******************************************************************************
  * Copyright (c) 2013, AllSeen Alliance. All rights reserved.
@@ -18,11 +16,14 @@
  ******************************************************************************/   
  -->
 
-<resources>
-    <string name="app_name">ControlPanelBrowser</string>
-    <string name="title_device_detail">Appliance Detail</string>
-    <string name="action_failed">Action failed</string>
-	<string name="set_password">Set password</string>
-    <string name="enter_device_password">Enter device password</string>
-	<string name="show_password">Show password</string>
-</resources>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appliance_list"
+    android:name="com.gcs.alljoyndemo.DeviceListFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    tools:context=".ApplianceListActivity"
+    tools:layout="@android:layout/list_content" />
+

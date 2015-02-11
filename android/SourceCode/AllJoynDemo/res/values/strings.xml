@@ -19,7 +19,7 @@
  -->
 
 <resources>
-    <string name="app_name">ControlPanelBrowser</string>
+    <string name="app_name">AllJoyn Demo</string>
     <string name="title_device_detail">Appliance Detail</string>
     <string name="action_failed">Action failed</string>
 	<string name="set_password">Set password</string>
