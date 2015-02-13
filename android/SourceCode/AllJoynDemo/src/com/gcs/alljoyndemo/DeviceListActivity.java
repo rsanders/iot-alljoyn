@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.net.*;
 
 /**
  * An activity representing a list of Appliances. This activity has different
@@ -72,6 +73,7 @@ public class DeviceListActivity extends FragmentActivity implements
 					.findFragmentById(R.id.appliance_list))
 					.setActivateOnItemClick(true);
 		}
+		
 	}
 
 	@Override

@@ -30,7 +30,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler, AuthPasswordHandler  
 {
@@ -65,6 +64,7 @@ public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler,
 		mControlPannelCallback = controlPannelCallback;
 		deviceRegistry = new DeviceList();
 	}
+	
 	@Override
 	public void handleMessage(Message msg) {
 		switch (msg.what) {
@@ -164,11 +164,9 @@ public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler,
 		{
 			Log.e(TAG, "Unable to start ControlPanelService, Error: " + e.getMessage());
 		}
-		Activity activity = mControlPannelCallback.getActivitySafely();
-		if(activity != null) {
-			Toast.makeText(activity, "Initialized" , Toast.LENGTH_SHORT).show();
-		}		
-
+		if(mControlPannelCallback != null) {
+			mControlPannelCallback.showToastMessage("Initialized");
+		}
 		// update the list
 		refreshListView();			
 
@@ -242,7 +240,7 @@ public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler,
 			for(int j = 0; j < supportedInterfaces.length; ++j){
 				if( supportedInterfaces[j].startsWith(ControlPanelService.INTERFACE_PREFIX) ){
 					// found a control panel interface
-					Log.d(TAG, "ADding BusObjectDesciption: " + description);
+					Log.d(TAG, "Adding BusObjectDesciption: " + description);
 					if (deviceContext == null) {
 						deviceContext = new DeviceContext(deviceId, busName, deviceFriendlyName);
 					}
@@ -266,7 +264,7 @@ public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler,
 		deviceRegistry.onDeviceOffline(busName);
 				
 		// update the list
-		refreshListView();			
+		refreshListView();
 	}		
 	
 	private void refreshListView() {
@@ -307,14 +305,10 @@ public class AllJoynAsyncHandler extends Handler implements AnnouncementHandler,
 		}
 		else {
 			Log.w(TAG, "The peer: '" + authPeer + "', WAS NOT authenticated for authMechanism: '" + authMechanism + "'");
-		}
-		final Activity activity = mControlPannelCallback.getActivitySafely();		
-		if (activity != null)
-			activity.runOnUiThread(new Runnable(){
-				@Override
-				public void run() {
-					Toast.makeText(activity, "Authenticated: " + authenticated, Toast.LENGTH_SHORT).show();
-				}});
+		}			
+		if (mControlPannelCallback != null) {
+			mControlPannelCallback.showToastMessage("Authenticated: " + authenticated);
+		}		
 	}
 	
 	/**

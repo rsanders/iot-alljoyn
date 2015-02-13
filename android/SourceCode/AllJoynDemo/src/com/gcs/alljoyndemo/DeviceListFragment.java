@@ -41,6 +41,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -326,5 +327,17 @@ public class DeviceListFragment extends ListFragment implements IControlPannelCa
 	@Override
 	public void setListViewAdapter(ArrayAdapter<DeviceContext> arrayAdapter) {
 		setListAdapter(arrayAdapter);
+	}
+
+	@Override
+	public void showToastMessage(final String message) {
+		final Activity activity = getActivitySafely();		
+		if (activity != null) {
+			activity.runOnUiThread(new Runnable(){
+				@Override
+				public void run() {
+					Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+				}});
+		}
 	}
 }

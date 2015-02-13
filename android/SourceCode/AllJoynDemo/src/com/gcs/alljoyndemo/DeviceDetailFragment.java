@@ -40,6 +40,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * A fragment representing a single Appliance detail screen. This fragment is
@@ -242,5 +243,17 @@ public class DeviceDetailFragment extends Fragment implements IControlPannelCall
 	@Override
 	public void setListViewAdapter(ArrayAdapter<DeviceContext> arrayAdapter) {
 		//setListAdapter(arrayAdapter);
+	}
+
+	@Override
+	public void showToastMessage(final String message) {
+		final Activity activity = getActivitySafely();		
+		if (activity != null) {
+			activity.runOnUiThread(new Runnable(){
+				@Override
+				public void run() {
+					Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+				}});
+		}
 	}
 }

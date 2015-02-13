@@ -18,5 +18,6 @@ public interface IControlPannelCallback {
 	public void onSelectControlPanel(ControllableDevice device);
 	public Activity getActivitySafely();
 	public void setListViewAdapter(ArrayAdapter<DeviceContext> arrayAdapter);
+	public void showToastMessage(String message);
 	
 }
