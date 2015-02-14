@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_about_property_store_impl_8h.html" title="Default implementation of the Property store." alt="" coords="5,237,176,267"/>
-<area shape="rect" id="node5" href="$_about_service_8h.html" title="An Alljoyn BusObject that implements the org.alljoyn.About interface." alt="" coords="77,83,187,112"/>
-<area shape="rect" id="node7" href="$_about_service_api_8h.html" title="Wrapper to encapsulate the AboutService with a singelton." alt="" coords="77,160,208,189"/>
-</map>

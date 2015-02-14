@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_status_8h.html" title="This file contains an enumerated list values that QStatus can return." alt="" coords="5,160,117,189"/>
-<area shape="rect" id="node5" href="$_msg_arg_8h.html" title="This file defines a class for message bus data types and values." alt="" coords="99,83,216,112"/>
-<area shape="rect" id="node7" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="144,237,248,267"/>
-<area shape="rect" id="node9" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="192,160,283,189"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$_auth_listener_8h.html" title="This file defines the alljoyn_authlistener and related functions that provides the interface between ..." alt="" coords="5,160,112,189"/>
-<area shape="rect" id="node7" href="$_interface_description_8h.html" title="This file defines types for statically describing a message bus interface." alt="" coords="117,83,267,112"/>
-<area shape="rect" id="node16" href="$_message_receiver_8h.html" title="MessageReceiver is a base class implemented by any class which wishes to receive AllJoyn messages..." alt="" coords="291,83,429,112"/>
-<area shape="rect" id="node5" href="$_bus_attachment_8h.html" title="is the top&#45;level object responsible for connecting to a message bus." alt="" coords="129,237,252,267"/>
-<area shape="rect" id="node10" href="$_bus_object_8h.html" title="This file defines the base class for message bus objects that are implemented and registered locally..." alt="" coords="187,160,280,189"/>
-<area shape="rect" id="node13" href="$_proxy_bus_object_8h.html" title="This file defines the alljoyn_proxybusobject and related functions." alt="" coords="304,160,432,189"/>
-</map>

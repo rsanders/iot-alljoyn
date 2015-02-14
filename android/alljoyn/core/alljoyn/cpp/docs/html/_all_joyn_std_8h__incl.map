@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="29,315,133,344"/>
-<area shape="rect" id="node5" href="$_interface_description_8h.html" title="This file defines types for statically describing a message bus interface." alt="" coords="60,83,249,112"/>
-<area shape="rect" id="node8" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="115,237,205,267"/>
-<area shape="rect" id="node11" href="$_d_bus_std_8h.html" title="This file provides definitions for standard DBus interfaces." alt="" coords="92,160,217,189"/>
-<area shape="rect" id="node13" href="$_message_8h.html" title="This file defines a class for parsing and generating message bus messages." alt="" coords="396,160,521,189"/>
-<area shape="rect" id="node17" href="$_status_8h.html" title="This file contains an enumerated list values that QStatus can return." alt="" coords="452,237,564,267"/>
-<area shape="rect" id="node20" href="$_translator_8h.html" title="Translator is an abstract base class (interface) implemented by users of the AllJoyn API in order to ..." alt="" coords="241,160,372,189"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classajn_1_1_bus_attachment.html" title="BusAttachment is the top&#45;level object responsible for connecting to and optionally managing a message..." alt="" coords="241,5,377,35"/>
-<area shape="rect" id="node5" href="$classajn_1_1_bus_object.html" title="Message Bus Object base class." alt="" coords="256,59,363,88"/>
-<area shape="rect" id="node11" href="$classajn_1_1_proxy_bus_object.html" title="Each ProxyBusObject instance represents a single DBus/AllJoyn object registered somewhere on the bus..." alt="" coords="239,112,380,141"/>
-<area shape="rect" id="node13" href="$classajn_1_1services_1_1_about_client.html" title="AboutClient is a helper class used by an AllJoyn IoE client application to discover services being of..." alt="" coords="224,165,395,195"/>
-<area shape="rect" id="node15" href="$classajn_1_1services_1_1_announce_handler.html" title="AnnounceHandler is a helper class used by an AllJoyn IoE client application to receive AboutService s..." alt="" coords="207,219,412,248"/>
-<area shape="rect" id="node7" href="$classajn_1_1services_1_1_about_icon_service.html" title="AboutIconService is an AllJoyn BusObject that implements the org.alljoyn.Icon standard interface..." alt="" coords="463,32,668,61"/>
-<area shape="rect" id="node9" href="$classajn_1_1services_1_1_about_service.html" title="AboutService is an AllJoyn BusObject that implements the org.alljoyn.About standard interface..." alt="" coords="475,85,656,115"/>
-</map>

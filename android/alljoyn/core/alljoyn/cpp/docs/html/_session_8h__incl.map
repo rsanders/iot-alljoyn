@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="26,160,130,189"/>
-<area shape="rect" id="node5" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="206,83,296,112"/>
-<area shape="rect" id="node14" href="$_transport_mask_8h.html" title="Transport type definitions." alt="" coords="22,83,182,112"/>
-</map>

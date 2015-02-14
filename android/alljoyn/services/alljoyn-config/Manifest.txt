@@ -1,2 +1,0 @@
-services/base: 4998792e980b91967af5c1524748408abed304e4 branch RB14.06
-Git: alljoyn branch: '(no branch)' tag: 'v14.06rc4' (+0 changes) commit ref: ad3804992d6af7ccb456d90b1ee0019c15f11d99

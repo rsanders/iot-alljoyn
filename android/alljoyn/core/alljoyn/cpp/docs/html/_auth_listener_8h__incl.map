@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$platform_8h.html" title="This file just wraps including actual OS and toolchain specific header files depding on the OS group ..." alt="" coords="195,315,299,344"/>
-<area shape="rect" id="node5" href="$_string_8h.html" title="Non&#45;STL version of string." alt="" coords="73,237,164,267"/>
-<area shape="rect" id="node14" href="$_message_8h.html" title="This file defines a class for parsing and generating message bus messages." alt="" coords="229,83,355,112"/>
-<area shape="rect" id="node26" href="$_status_8h.html" title="This file contains an enumerated list values that QStatus can return." alt="" coords="289,237,401,267"/>
-<area shape="rect" id="node18" href="$_managed_obj_8h.html" title="This template class provides reference counting based heap allocation for objects." alt="" coords="476,237,607,267"/>
-<area shape="rect" id="node22" href="$_msg_arg_8h.html" title="This file defines a class for message bus data types and values." alt="" coords="233,160,351,189"/>
-<area shape="rect" id="node28" href="$_session_8h.html" title="AllJoyn session related data types." alt="" coords="89,160,209,189"/>
-</map>
