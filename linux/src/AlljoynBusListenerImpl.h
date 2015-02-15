@@ -13,13 +13,13 @@
  */
 class AlljoynBusListenerImpl : public ajn::BusListener, public ajn::SessionPortListener
 {
-private:
-  /**
-   * The port used as part of the join session request
-   */
-  ajn::SessionPort m_SessionPort;
+  private:
+    /**
+     * The port used as part of the join session request
+     */
+    ajn::SessionPort m_SessionPort;
 
-public:
+  public:
     AlljoynBusListenerImpl();
     virtual ~AlljoynBusListenerImpl();
 
@@ -27,8 +27,7 @@ public:
      * Set the Value of the SessionPort associated with this SessionPortListener
      * @param sessionPort
      */
-    void setSessionPort(ajn::SessionPort sessionPort)
-    {
+    void setSessionPort(ajn::SessionPort sessionPort) {
         m_SessionPort = sessionPort;
     }
 
@@ -36,8 +35,7 @@ public:
      * Get the SessionPort of the listener
      * @return
      */
-    ajn::SessionPort getSessionPort()
-    {
+    ajn::SessionPort getSessionPort() {
         return m_SessionPort;
     }
 };

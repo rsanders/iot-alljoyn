@@ -10,7 +10,7 @@
 
 class AlljoynBusObject
 {
-public:
+  public:
     AlljoynBusObject();
     virtual ~AlljoynBusObject();
 };

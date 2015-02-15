@@ -26,7 +26,7 @@
  */
 class AlljoynApp
 {
-private:
+  private:
     ajn::BusAttachment*                     busAttachment;
 
     AlljoynBusObject*                       busObj; // Our bus object
@@ -43,7 +43,7 @@ private:
     QStatus fillAboutProperty();
     QStatus buildBusObject();
 
-public:
+  public:
     AlljoynApp ();
     virtual ~AlljoynApp();
 
