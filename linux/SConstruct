@@ -24,7 +24,14 @@ env.PrependUnique(LIBS = ['alljoyn_about',
 						  'pthread'])
 
 #ALLJOYN_PATH = '../alljoyn/{0}/debug/dist'.format(env['OS']);
-ALLJOYN_PATH = '../alljoyn/x86/debug/dist';
+ALLJOYN_PATH = os.environ.get('ALLJOYN_DIST','../alljoyn-dist');
+
+env.PrependUnique(CPPPATH=[ALLJOYN_PATH + '/config/inc',
+						   ALLJOYN_PATH + '/services_common/inc',
+						   ALLJOYN_PATH + '/cpp/inc',
+						   ALLJOYN_PATH + '/about/inc',
+						   ALLJOYN_PATH + '/controlpanel/inc',
+						   ALLJOYN_PATH + '/notification/inc'])
 
 env.PrependUnique(LIBPATH=[ALLJOYN_PATH + '/config/lib',
 						   ALLJOYN_PATH + '/services_common/lib',

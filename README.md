@@ -2,6 +2,17 @@
 IoT research on Alljoyn framework
 
 # To build Alljoyn
+* Install
+```
+sudo apt-get install build-essential libgtk2.0-dev libssl-dev xsltproc ia32-libs libxml2-dev
+sudo apt-get install python
+sudo apt-get install libssl-dev
+sudo apt-get install doxygen
+sudo apt-get install graphviz
+sudo apt-get install texlive
+
+```
+
 * Checkout the source
 ```
 mkdir WORKING_DIRECTORY
