@@ -12,7 +12,8 @@ def _newEnvironment():
 env = _newEnvironment()
 
 # Defines needed for AllJoyn headers
-#env.Append(CXXFLAGS=Split('-DQCC_OS_GROUP_POSIX -DQCC_OS_LINUX'))
+env.Append(CPPDEFINES = ['AJ_MAIN',])
+
 env.PrependUnique(LIBS = ['ajtcl',
 						  'ssl',
 						  'crypto',
