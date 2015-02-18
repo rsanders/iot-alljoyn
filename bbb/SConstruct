@@ -1,0 +1,31 @@
+import os
+
+def _newEnvironment():
+	e = Environment(CPPPATH=[], LIBPATH=[], LIBS=[], SHLIBSUFFIX='.so', SHLINKFLAGS=[ '$LINKFLAGS', '-shared' ], ENV=os.environ, **ARGUMENTS)
+	e.AppendUnique(CFLAGS=os.environ.get('CFLAGS', '').split())
+	for l in os.environ.get('LDFLAGS', '').split():
+		if l.startswith('-L'):
+			e.AppendUnique(LIBPATH=l[2:])
+	e.createEnvironment = _newEnvironment
+	return e
+
+env = _newEnvironment()
+
+# Defines needed for AllJoyn headers
+#env.Append(CXXFLAGS=Split('-DQCC_OS_GROUP_POSIX -DQCC_OS_LINUX'))
+env.PrependUnique(LIBS = ['ajtcl',
+						  'ssl',
+						  'crypto',
+						  'pthread'])
+
+#ALLJOYN_PATH = '../alljoyn/{0}/debug/dist'.format(env['OS']);
+ALLJOYN_PATH = os.environ.get('ALLJOYN_DIST','../alljoyn-dist');
+OPENSSL_PATH = os.environ.get('OPENSSL_PATH','../alljoyn-dist');
+
+env.PrependUnique(CPPPATH=[ALLJOYN_PATH + '/inc',
+						   OPENSSL_PATH + '/include'])
+
+env.PrependUnique(LIBPATH=[ALLJOYN_PATH + '/lib',
+						   OPENSSL_PATH + '/lib'])
+
+env.SConscript('SConscript', exports='env')
