@@ -8,9 +8,12 @@
 #ifndef ALLJOYNBUSOBJECT_H_
 #define ALLJOYNBUSOBJECT_H_
 
+/**
+ *
+ */
 class AlljoynBusObject
 {
-  public:
+public:
     AlljoynBusObject();
     virtual ~AlljoynBusObject();
 };

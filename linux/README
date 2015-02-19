@@ -28,3 +28,9 @@ linux
 \-- src
     
 - Inside root of this project type scons to build
+
+
+How to run
+- Start the alljoyn-daemon in the background (located under build/cpp/bin/)
+- Setup LD_LIBRARY_PATH
+- Run alljoyn_app

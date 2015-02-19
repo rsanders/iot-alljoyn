@@ -8,6 +8,10 @@
 #ifndef ALLJOYNBUSLISTENER_H_
 #define ALLJOYNBUSLISTENER_H_
 
+#include <alljoyn/Session.h>
+#include <alljoyn/BusListener.h>
+#include <alljoyn/SessionPortListener.h>
+
 /**
  *
  */

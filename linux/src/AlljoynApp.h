@@ -9,6 +9,7 @@
 #define ALLJOYNAPP_H_
 
 #include "AlljoynBusObject.h"
+#include "AlljoynBusListenerImpl.h"
 
 #include <alljoyn/BusAttachment.h>
 #include <alljoyn/BusObject.h>
@@ -30,25 +31,31 @@ class AlljoynApp
     ajn::BusAttachment*                     busAttachment;
 
     AlljoynBusObject*                       busObj; // Our bus object
+    AlljoynBusListenerImpl*                 busListener;
 
-    // For About services
+    // For About service
     ajn::services::AboutPropertyStoreImpl*  aboutPropertyStore;
 
-    // For Control Panel services
+    // For Control Panel service
     ajn::services::ControlPanelService*     controlPanelService;
     ajn::services::ControlPanelControllee*  controlPanelControllee;
 
+    // For Notification service
     ajn::services::NotificationService*     notificationService;
+
+    bool isRunning;
+    char *appName;
 
     QStatus fillAboutProperty();
     QStatus buildBusObject();
 
   public:
-    AlljoynApp ();
+    AlljoynApp (const char * appName);
     virtual ~AlljoynApp();
 
-    void init();
-    void shutdown();
+    QStatus init();
+    void cleanup();
+    void run();
 
 };
 

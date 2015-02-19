@@ -13,7 +13,7 @@ def _newEnvironment():
 env = _newEnvironment()
 
 # Defines needed for AllJoyn headers
-env.Append(CXXFLAGS=Split('-DQCC_OS_GROUP_POSIX -DQCC_OS_LINUX'))
+env.Append(CXXFLAGS=Split('-DQCC_OS_GROUP_POSIX -DQCC_OS_LINUX -g'))
 env.PrependUnique(LIBS = ['alljoyn_about',
 						  'alljoyn_controlpanel', 
 						  'alljoyn_services_common', 
