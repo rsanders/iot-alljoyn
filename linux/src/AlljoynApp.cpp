@@ -1,15 +1,38 @@
 #include "common.h"
 #include "AlljoynApp.h"
 
+#include <alljoyn/PasswordManager.h>
+
+#include <qcc/Debug.h>
+#include <qcc/String.h>
+#include <qcc/StringUtil.h>
+
 using namespace ajn;
 using namespace services;
+using namespace qcc;
 
 #define SERVICE_PORT 8888
 
+#define QCC_MODULE "SAMPLE_DAEMON"
+
+const char* DefaultDaemonBusName = "org.alljoyn.BusNode.TestingPurposesOnly";
+
+const char* ThinClientAuthMechanism = "ALLJOYN_PIN_KEYX";
+const char* ThinClientDefaultBusPwd = "1234";
+
 AlljoynApp::AlljoynApp (const char *appName) : busAttachment(NULL),
                                                busListener(NULL),
-                                               aboutPropertyStore(NULL) {
-    this->appName = strdup(appName);
+                                               aboutPropertyStore(NULL),
+                                               isRunning(false),
+                                               notificationService(NULL),
+                                               busObj(NULL) ,
+                                               controlPanelControllee(NULL),
+                                               controlPanelService(NULL) {
+    if (appName != NULL) {
+        this->appName = strdup(appName);
+    } else {
+        this->appName = NULL;
+    }
 }
 
 AlljoynApp::~AlljoynApp() {
@@ -42,6 +65,7 @@ QStatus AlljoynApp::buildBusObject() {
  */
 QStatus AlljoynApp::init() {
     QStatus status = ER_OK;
+    String nameToAdvertise = DefaultDaemonBusName;
 
     // Create message bus
     busAttachment = new BusAttachment(appName, true);
@@ -58,27 +82,44 @@ QStatus AlljoynApp::init() {
         return status;
     }
 
-    // Connect to the AJ Router
-    status = busAttachment->Connect();
+    // Set the credential that thin clients have to offer to connect
+    // to this SampleDaemon in a trusted manner.
+    PasswordManager::SetCredentials(ThinClientAuthMechanism, ThinClientDefaultBusPwd);
+
+    // Connect to the bundled AJ Router
+    status = busAttachment->Connect("null:");
     if (ER_OK != status) {
         std::cout << "Failed to connect to AJ Router (" << QCC_StatusText(status) << ")." << std::endl;
         cleanup();
         return status;
     }
 
-    // Create the bus listener
-    ajn::SessionPort sp = SERVICE_PORT;
-    busListener = new AlljoynBusListenerImpl();
-    busListener->setSessionPort(sp);
-    busAttachment->RegisterBusListener(*busListener);
+//    // Create the bus listener
+//    ajn::SessionPort sp = SESSION_PORT_ANY;
+//    busListener = new AlljoynBusListenerImpl();
+//    busListener->setSessionPort(sp);
+//    busAttachment->RegisterBusListener(*busListener);
 
-    // Bind the session port for client to connect
-    SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
-    status = busAttachment->BindSessionPort(sp, opts, *busListener);
-    if (ER_OK != status) {
-        std::cout << "BindSessionPort failed (" << QCC_StatusText(status) << ")." << std::endl;
-        return status;
+    if (ER_OK == status) {
+        // 'Quiet'ly advertise the name to be discovered by thin clients.
+        // Also, given that thin clients are in the same network as the
+        // SampleDaemon, advertise the name ONLY over TCP Transport.
+        nameToAdvertise = "quiet@" + nameToAdvertise;
+        status = busAttachment->AdvertiseName(nameToAdvertise.c_str(), TRANSPORT_TCP);
+        if (ER_OK != status) {
+            QCC_LogError(status, ("Unable to quietly advertise the name %s", nameToAdvertise.c_str()));
+            cleanup();
+            return status;
+        }
     }
+
+//    // Bind the session port for client to connect
+//    SessionOpts opts(SessionOpts::TRAFFIC_MESSAGES, false, SessionOpts::PROXIMITY_ANY, TRANSPORT_ANY);
+//    status = busAttachment->BindSessionPort(sp, opts, *busListener);
+//    if (ER_OK != status) {
+//        std::cout << "BindSessionPort failed (" << QCC_StatusText(status) << ")." << std::endl;
+//        return status;
+//    }
 
     return status;
 }
@@ -111,6 +152,8 @@ void AlljoynApp::cleanup() {
  * Main application loop.
  */
 void AlljoynApp::run() {
+    isRunning = true;
+
     while (isRunning) {
         sleep(100);
     }

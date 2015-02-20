@@ -18,6 +18,7 @@ env.PrependUnique(LIBS = ['alljoyn_about',
 						  'alljoyn_controlpanel', 
 						  'alljoyn_services_common', 
 						  'alljoyn_notification',
+						  'ajrouter',
 						  'alljoyn', 
 						  'crypto', 
 						  'stdc++', 
@@ -25,6 +26,8 @@ env.PrependUnique(LIBS = ['alljoyn_about',
 
 #ALLJOYN_PATH = '../alljoyn/{0}/debug/dist'.format(env['OS']);
 ALLJOYN_PATH = os.environ.get('ALLJOYN_DIST','../alljoyn-dist');
+
+env['ALLJOYN_PATH'] = ALLJOYN_PATH;
 
 env.PrependUnique(CPPPATH=[ALLJOYN_PATH + '/config/inc',
 						   ALLJOYN_PATH + '/services_common/inc',

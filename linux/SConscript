@@ -10,6 +10,10 @@ returnValue = []
 # Add support for multiple build targets in the same workset
 env.VariantDir('build', 'src', duplicate = 0)
 
+ALLJOYN_PATH = env['ALLJOYN_PATH']
+
+env['brobj'] = '$ALLJOYN_PATH/cpp/lib/BundledRouter.o'
+
 prog = env.Install('$DISTDIR/lib', env.SConscript('build/SConscript', exports='env'))
 
 returnValue += prog
