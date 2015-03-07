@@ -1,0 +1,46 @@
+import os
+
+def _newEnvironment():
+	e = Environment(CPPPATH=[], LIBPATH=[], LIBS=[], SHLIBSUFFIX='.so', SHLINKFLAGS=[ '$LINKFLAGS', '-shared' ], ENV=os.environ, **ARGUMENTS)
+	e.AppendUnique(CFLAGS=os.environ.get('CFLAGS', '').split())
+	e.AppendUnique(CXXFLAGS=os.environ.get('CXXFLAGS', '').split())
+	for l in os.environ.get('LDFLAGS', '').split():
+		if l.startswith('-L'):
+			e.AppendUnique(LIBPATH=l[2:])
+	e.createEnvironment = _newEnvironment
+	return e
+
+env = _newEnvironment()
+
+# Defines needed for AllJoyn headers
+env.Append(CXXFLAGS=Split('-DQCC_OS_GROUP_POSIX -DQCC_OS_LINUX -g'))
+env.PrependUnique(LIBS = ['alljoyn_about',
+						  'alljoyn_controlpanel', 
+						  'alljoyn_services_common', 
+						  'alljoyn_notification',
+						  'ajrouter',
+						  'alljoyn', 
+						  'crypto', 
+						  'stdc++', 
+						  'pthread'])
+
+#ALLJOYN_PATH = '../alljoyn/{0}/debug/dist'.format(env['OS']);
+ALLJOYN_PATH = os.environ.get('ALLJOYN_DIST','../alljoyn-dist');
+
+env['ALLJOYN_PATH'] = ALLJOYN_PATH;
+
+env.PrependUnique(CPPPATH=[ALLJOYN_PATH + '/config/inc',
+						   ALLJOYN_PATH + '/services_common/inc',
+						   ALLJOYN_PATH + '/cpp/inc',
+						   ALLJOYN_PATH + '/about/inc',
+						   ALLJOYN_PATH + '/controlpanel/inc',
+						   ALLJOYN_PATH + '/notification/inc'])
+
+env.PrependUnique(LIBPATH=[ALLJOYN_PATH + '/config/lib',
+						   ALLJOYN_PATH + '/services_common/lib',
+						   ALLJOYN_PATH + '/cpp/lib',
+						   ALLJOYN_PATH + '/about/lib',
+						   ALLJOYN_PATH + '/controlpanel/lib',
+						   ALLJOYN_PATH + '/notification/lib'])
+
+env.SConscript('SConscript', exports='env')
