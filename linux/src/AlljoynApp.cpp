@@ -50,6 +50,8 @@ AlljoynApp::~AlljoynApp() {
 QStatus AlljoynApp::fillAboutProperty() {
     QStatus status = ER_OK;
 
+    // TODO Ly fill in
+
     return status;
 }
 
