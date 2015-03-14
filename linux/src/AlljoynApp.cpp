@@ -1,5 +1,6 @@
 #include "common.h"
 #include "AlljoynApp.h"
+#include "NotificationReceiverImpl.h"
 
 #include <alljoyn/PasswordManager.h>
 
@@ -15,6 +16,8 @@ using namespace qcc;
 
 #define QCC_MODULE "SAMPLE_DAEMON"
 
+static const char* INTERFACE_NAME = "com.*";
+
 const char* DefaultDaemonBusName = "org.alljoyn.BusNode.TestingPurposesOnly";
 
 const char* ThinClientAuthMechanism = "ALLJOYN_PIN_KEYX";
@@ -22,6 +25,7 @@ const char* ThinClientDefaultBusPwd = "1234";
 
 AlljoynApp::AlljoynApp (const char *appName) : busAttachment(NULL),
                                                busListener(NULL),
+                                               aboutListener(NULL),
                                                aboutPropertyStore(NULL),
                                                isRunning(false),
                                                notificationService(NULL),
@@ -54,6 +58,7 @@ QStatus AlljoynApp::fillAboutProperty() {
 
     return status;
 }
+
 
 QStatus AlljoynApp::buildBusObject() {
     QStatus status = ER_OK;
@@ -96,6 +101,26 @@ QStatus AlljoynApp::init() {
         return status;
     }
 
+    std::cout << "Created BusAttachment and connected.\n" ;
+
+    // Register About listener
+    aboutListener = new AlljoynAboutListenerImpl();
+    busAttachment->RegisterAboutListener(*aboutListener);
+
+    const char* interfaces[] = { INTERFACE_NAME };
+    status = busAttachment->WhoImplements(interfaces, sizeof(interfaces) / sizeof(interfaces[0]));
+
+    // Passing NULL into WhoImplements will listen for all About announcements
+    // Note: specifying NULL for the interface parameter could have significant impact
+    // on network performance and should be avoided unless all announcements are needed.
+    //status = busAttachment->WhoImplements(NULL);
+
+    if (ER_OK != status) {
+    	std::cout << "WhoImplements call FAILED with status (" << QCC_StatusText(status) << ")" <<std::endl;
+    	cleanup();
+    	return status;
+    }
+
 //    // Create the bus listener
 //    ajn::SessionPort sp = SESSION_PORT_ANY;
 //    busListener = new AlljoynBusListenerImpl();
@@ -123,6 +148,22 @@ QStatus AlljoynApp::init() {
 //        return status;
 //    }
 
+    // Initialize Notification Consumer
+	// Initialize Service object and send it Notification Receiver object
+    // Todo: Debug error "Failed to init Notification Service (ER_BUS_OBJ_ALREADY_EXISTS)."
+
+//    if (!notificationService)
+//    	notificationService = NotificationService::getInstance();
+//    notificationReceiver = new NotificationReceiverImpl();
+//
+//    status = notificationService->initReceive(busAttachment, notificationReceiver);
+//    if (status != ER_OK) {
+//    	std::cout << "Failed to init Notification Service (" << QCC_StatusText(status) << ")." << std::endl;
+//    	cleanup();
+//    	return status;
+//    }
+
+
     return status;
 }
 
@@ -131,6 +172,10 @@ QStatus AlljoynApp::init() {
  */
 void AlljoynApp::cleanup() {
     // Clean up
+	if (aboutListener) {
+		delete aboutListener;
+		aboutListener = NULL;
+	}
     if (aboutPropertyStore) {
         delete aboutPropertyStore;
         aboutPropertyStore = NULL;
@@ -148,17 +193,88 @@ void AlljoynApp::cleanup() {
         busAttachment = NULL;
     }
     AboutServiceApi::DestroyInstance();
+
 }
+
+/**
+ * Helper methods to receive command from console
+ */
+
+/*
+ * get a line of input from the the file pointer (most likely stdin).
+ * This will capture the the num-1 characters or till a newline character is
+ * entered.
+ *
+ * @param[out] str a pointer to a character array that will hold the user input
+ * @param[in]  num the size of the character array 'str'
+ * @param[in]  fp  the file pointer the sting will be read from. (most likely stdin)
+ *
+ * @return returns the same string as 'str' if there has been a read error a null
+ *                 pointer will be returned and 'str' will remain unchanged.
+ */
+char* get_line(char*str, size_t num, FILE*fp)
+{
+    char*p = fgets(str, num, fp);
+
+    // fgets will capture the '\n' character if the string entered is shorter than
+    // num. Remove the '\n' from the end of the line and replace it with nul '\0'.
+    if (p != NULL) {
+        size_t last = strlen(str) - 1;
+        if (str[last] == '\n') {
+            str[last] = '\0';
+        }
+    }
+    return p;
+}
+
+static qcc::String NextToken(qcc::String& inStr)
+{
+    qcc::String ret;
+    size_t off = inStr.find_first_of(' ');
+    if (off == qcc::String::npos) {
+        ret = inStr;
+        inStr.clear();
+    } else {
+        ret = inStr.substr(0, off);
+        inStr = Trim(inStr.substr(off));
+    }
+    return Trim(ret);
+}
+
+void printHelp() {
+    printf("\n");
+    printf("quit                             - Shutdown the application and exit\n");
+    printf("\n");
+}
+
 
 /**
  * Main application loop.
  */
 void AlljoynApp::run() {
-    isRunning = true;
+//    isRunning = true;
+//
+//    while (isRunning) {
+//        sleep(100);
+//    }
+    const int bufSize = 1024;
+    char buf[bufSize];
 
-    while (isRunning) {
-        sleep(100);
+        // An input loop, to allow for easy extension of the sample that takes in input
+    // ToDo: Add more commands here
+    while (get_line(buf, bufSize, stdin)) {
+        qcc::String line(buf);
+        qcc::String cmd = NextToken(line);
+        if (cmd == "help" || cmd == "?") {
+            printHelp();
+        } else if (cmd == "quit") {
+            return;
+        } else {
+            printHelp();
+        }
     }
+
+
 }
 
 int main(int argc, char**argv, char**envArg) {
@@ -169,7 +285,7 @@ int main(int argc, char**argv, char**envArg) {
     AlljoynApp app("MyAllJoynApp");
     app.init();
 
-    //app.run();
+    app.run();
 
     return 0;
 }

@@ -3,13 +3,17 @@
 #include <vector>
 
 #include "common.h"
+
 #include <alljoyn/notification/Notification.h>
+#include <alljoyn/notification/NotificationReceiver.h>
+#include <alljoyn/notification/NotificationService.h>
+#include <alljoyn/notification/NotificationText.h>
 
 
 class NotificationReceiverImpl : public ajn::services::NotificationReceiver
 {
 	public:
-	   /**
+	/**
      * Constructor
      * @param wait to external notification action
      */
