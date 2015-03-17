@@ -14,7 +14,7 @@
  *    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  ******************************************************************************/
 
-package com.gcs.alljoyndemo;
+package com.gcs.alljoynwrapper.notification;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,8 +53,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 
-public class IoeNotificationApplication extends Application implements NotificationReceiver {
-	private static final String TAG = "ioe" + IoeNotificationApplication.class.getSimpleName();
+public class IoeNotification extends Application implements NotificationReceiver {
+	private static final String TAG = "ioe" + IoeNotification.class.getSimpleName();
 	
     static {
 	     System.loadLibrary("alljoyn_java");
@@ -64,7 +64,7 @@ public class IoeNotificationApplication extends Application implements Notificat
      * The daemon should advertise itself "quietly" (directly to the calling port)
      * This is to reply directly to a TC looking for a daemon 
      */  
-    private static final String DAEMON_NAME_PREFIX          = "org.alljoyn.BusNode.IoeService";
+    private static final String DAEMON_NAME_PREFIX          = "com.gcs.alljoyndemo.BusNode.IoeService"; // just an example daemon
      
     /** 
      * The daemon should advertise itself "quietly" (directly to the calling port)
@@ -152,23 +152,21 @@ public class IoeNotificationApplication extends Application implements Notificat
 	/**
 	 * Method called when the application started
 	 */
-	@Override	
-	public void onCreate() {
-		super.onCreate();
-		Log.i(TAG,"Starting IoeNotificationApplication: calling createService");
+	public void initialize() {
+		Log.i(TAG,"Initializing: calling createService");
 		aboutService = AboutServiceImpl.getInstance();
 
 		//Create my own BusAttachment
         DaemonInit.PrepareDaemon(this);
 		notificationService = NotificationService.getInstance();
-	}//onCreate
+	}
 
 	/**
 	 * 
-	 * @param sampleAppActivity
+	 * @param myActivity
 	 */
-	public void setSampleAppActivity(NotificationServiceControlsActivity sampleAppActivity) {
-		this.myActiv = sampleAppActivity;
+	public void setActivity(NotificationServiceControlsActivity myActivity) {
+		this.myActiv = myActivity;
 	}
 	
 	/**
@@ -184,23 +182,6 @@ public class IoeNotificationApplication extends Application implements Notificat
 	public BusAttachment getBusAttachment() {
 		return bus;
 	}//getBusAttachment
-	
-	/**
-	 * Returns App Name
-	 * @return
-	 */
-	public String getAppName() {
-		return appName;
-	}//getAppName
-	
-
-	/**
-	 * Set the AppName
-	 * @param appName
-	 */
-	public void setAppName(String appName) {
-		this.appName = appName;
-	}//setAppName
 	
 	/**
 	 * called when checking the Producer checkbox
@@ -484,7 +465,7 @@ public class IoeNotificationApplication extends Application implements Notificat
 	         myActiv.runOnUiThread( new Runnable() {             // Run the Toast on the Activity UI thread
 				@Override
 				public void run() {
-					Toast toast = Toast.makeText(IoeNotificationApplication.this, msg, Toast.LENGTH_LONG);
+					Toast toast = Toast.makeText(IoeNotification.this, msg, Toast.LENGTH_LONG);
 					toast.show();
 				}
 			 }); 
@@ -595,4 +576,4 @@ public class IoeNotificationApplication extends Application implements Notificat
         
     }//advertiseDaemon
 
-}//IoeNotificationApplication
+}
