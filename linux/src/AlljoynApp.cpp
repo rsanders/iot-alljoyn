@@ -104,7 +104,7 @@ QStatus AlljoynApp::init() {
     std::cout << "Created BusAttachment and connected.\n" ;
 
     // Register About listener
-    aboutListener = new AlljoynAboutListenerImpl();
+    aboutListener = new AlljoynAboutListenerImpl(busAttachment);
     busAttachment->RegisterAboutListener(*aboutListener);
 
     const char* interfaces[] = { INTERFACE_NAME };
