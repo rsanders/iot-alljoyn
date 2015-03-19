@@ -1,6 +1,8 @@
 
-Setup environment:
+# Setup environment:
+Export the library path and services
 
+```
 export ALLJOYN_ROOT="/media/sontung/SOURCE/IoT/alljoyn/"
 export ALLJOYN_DIST="$ALLJOYN_ROOT/core/alljoyn/build/linux/x86/debug/dist"
 
@@ -20,22 +22,29 @@ export LDFLAGS="-L$ALLJOYN_DIST/cpp/lib \
 		-L$ALLJOYN_DIST/controlpanel/lib"
 
 export LD_LIBRARY_PATH="$ALLJOYN_DIST/cpp/lib:$ALLJOYN_DIST/about/lib:$ALLJOYN_DIST/services_common/lib:$ALLJOYN_DIST/notification/lib:$ALLJOYN_DIST/controlpanel/lib"
+```
 
+# Generate source code from XML:
 
-Generate source code from XML:
-
+```
 python CPSAppGenerator/generateCPSApp.py src/RPI_ControlPanel.xml -p src/generated/
+```
 
-Build: (for Linux)
+# Build: (for Linux)
 
+```
 scons WS=off
+```
 
-Run:
+# Run:
 
+```
 ./build/rpi-controlee
+```
 
-Tree layout:
+# Tree layout:
 
+```
 ├── README.md
 ├── SConscript
 ├── SConstruct
@@ -53,3 +62,4 @@ Tree layout:
     ├── RPIControllee.cc
     ├── RPI_ControlPanel.xml
     └── SConscript
+```
