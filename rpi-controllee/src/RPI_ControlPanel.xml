@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<controlPanelDevice xmlns="http://www.alljoyn.org/controlpanel/gen">
+    <name>MyDevice</name>
+    <headerCode>#include "../provided/RPIProvider.h"</headerCode>
+    <url>http://tungps.com</url>  
+    <languageSet name="English">
+        <language>en</language>
+    </languageSet>
+    <controlPanels>
+        <controlPanel languageSet="English">
+            <rootContainer>
+                <name>rootContainer</name>
+                <secured>false</secured>
+                <enabled>true</enabled>
+                <bgcolor>0x200</bgcolor>
+                <label>
+                    <value type="literal" language="en">Control Panel for turn ON/OFF light</value>
+                </label>
+                <hints>
+                    <hint>vertical_linear</hint>
+                </hints>
+                <elements>
+                    <action>
+                        <name>lightAction</name>
+                        <onAction>
+                            <executeCode>toggleLight();</executeCode>
+                        </onAction>
+                        <secured>false</secured>
+                        <enabled>true</enabled>
+                        <label>
+                            <value type="literal" language="en">Light ON/OFF</value>
+                        </label>
+                        <bgcolor>0x400</bgcolor>
+                        <hints>
+                            <hint>actionButton</hint>
+                        </hints>
+                    </action>
+                </elements>
+            </rootContainer>
+        </controlPanel>
+    </controlPanels>
+</controlPanelDevice>
